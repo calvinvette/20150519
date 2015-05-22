@@ -28,6 +28,7 @@ var vendorJs =  [
   
   'app/vendor/angular/angular.js',
   'app/vendor/angular-animate/angular-animate.js',
+  'app/vendor/angular-route/angular-route.js',
   'app/vendor/angular-cookies/angular-cookies.js',
   'app/vendor/angular-sanitize/angular-sanitize.js',
   
@@ -43,6 +44,8 @@ var vendorStyles = [
   ];
 
 var otherAssets = [
+    './app/**/*.html',
+    '!./app/**/*.tpl.html',
     './app/fonts/**/*.*',
     './app/images/**/*.*'   
   ]
