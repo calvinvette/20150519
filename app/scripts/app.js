@@ -21,8 +21,12 @@ angular.module('weasleyNG', [
 			});
 }) 
 //.run(function($timeout, $rootScope, $location){
-.run(function(){
+.run(function($rootScope){
   console.log('Your angular app is initialized.  Happy hacking!');
+ $rootScope.$on("CustomerRegisteredEvent", function(evt, data) {
+                        console.log("Customer Registered: " + data);
+                        $rootScope.$broadcast("CustomerAddedEvent", data);
+                });
 })
 ;
 
