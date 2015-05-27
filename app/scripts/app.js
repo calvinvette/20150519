@@ -30,6 +30,5 @@ angular.module('weasleyNG', [
                         console.log("Customer Registered: " + data);
                         $rootScope.$broadcast("CustomerAddedEvent", data);
                 });
-})
-;
+});
 
