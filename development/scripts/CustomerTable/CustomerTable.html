@@ -1,0 +1,37 @@
+	<div ng-controller="CustomerTableController">
+				<table>
+					<tr ng-repeat="cust in customers track by cust.customerId" ng-dblclick="editCustomer(cust)" ng-keyup="keyup(cust, $event)">
+						<td>
+							{{cust.customerId}}
+						</td>
+						<td>
+							<span ng-show="!isEditing(cust)">
+								{{cust.firstName}}
+							</span>
+							<span ng-show="isEditing(cust)">
+								<input ng-model="workingCustomer.firstName"/>
+							</span>
+						</td>
+						<td>
+							<span ng-hide="isEditing(cust)">
+								{{cust.lastName}}
+							</span>
+							<span ng-show="isEditing(cust)">
+								<input ng-model="workingCustomer.lastName"/>
+							</span>
+						</td>
+						<td>
+							<span ng-hide="isEditing(cust)">
+								{{cust.phoneNumber}}
+							</span>
+							<span ng-show="isEditing(cust)">
+								<input ng-model="workingCustomer.phoneNumber"/>
+							</span>
+						</td>
+						<td>
+							<button ng-click="remove(cust)">X</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+

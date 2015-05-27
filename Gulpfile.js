@@ -24,7 +24,7 @@ var gulp = require('gulp'),
 
 var vendorJs =  [
   
-  'app/vendor/jquery/jquery.js',
+  'app/vendor/jquery/dist/jquery.js',
   
   'app/vendor/angular/angular.js',
   'app/vendor/angular-animate/angular-animate.js',

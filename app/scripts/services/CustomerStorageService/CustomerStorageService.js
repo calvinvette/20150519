@@ -21,9 +21,10 @@ angular.module("weasleyNG")
 	$rootScope.$on("CustomerUpdatedEvent", function(evt, data) {
 		var customers = getWLSCustomers();
 		var foundCust = _.find(customers, function(cust) {
-			return cust.customerId = data.customerId;
+			return cust.customerId == data.customerId;
 		});
-		foundCust = data;
+		//foundCust = data;
+		angular.extend(foundCust, data);
 		saveWLSCustomers(customers);
 	});
 

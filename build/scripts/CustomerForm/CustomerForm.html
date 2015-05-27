@@ -1,0 +1,21 @@
+<form id="frmCustomerRegistration" name="frmCustomerRegistration" >
+	<div class="formfield">
+		<label for="txtCustomerId">Customer ID:</label>
+		<input id="txtCustomerId" name="txtCustomerId" type="text" ng-model="customer.customerId"/>
+	</div>
+	<div class="formfield">
+		<label for="txtFirstName">First Name</label>
+		<input id="txtFirstName" name="txtFirstName" type="text" ng-model="customer.firstName"/>
+	</div>
+	<div class="formfield">
+		<label for="txtLastName">Last Name:</label>
+		<input id="txtLastName" name="txtLastName" type="text" ng-model="customer.lastName"/>
+	</div>
+	<div class="formfield">
+		<label for="txtPhoneNumber">Phone Number:</label>
+		<input id="txtPhoneNumber" name="txtPhoneNumber" type="text" ng-model="customer.phoneNumber"/>
+	</div>
+	<button id="btnRegister" ng-click="register()">Register New Customer</button>
+</form>
+
+<ng-include src="'scripts/CustomerTable/CustomerTable.html'"/>
