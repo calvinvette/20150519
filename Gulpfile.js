@@ -273,6 +273,7 @@ gulp.task('watch', function(){
   gulp.watch(['e2e/**/*.test.js'], ['e2e-test']);
   gulp.watch(['app/scripts/**/*.test.js'], ['karma']);
   gulp.watch(['app/scripts/**/*.js', '!app/scripts/**/*.test.js'], ['appScripts']);
+  gulp.watch(otherAssets, ['move-development']);
   gulp.watch('app/scripts/**/*.tpl.html', ['templates']);
   gulp.watch('app/styles/**/*.scss', ['appStyles']);
   gulp.watch('app/_index.html', ['index-development']);

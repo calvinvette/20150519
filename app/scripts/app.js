@@ -16,6 +16,9 @@ angular.module('weasleyNG', [
                                 templateUrl : 'scripts/CustomerForm/CustomerForm.html',
                                 controller : 'CustomerFormController'
                         })
+                        .when('/Customers', {
+                                templateUrl : 'scripts/CustomerTable/CustomerTable.html',
+                        })
 			.otherwise({
 				redirectTo: "404.html"
 			});
