@@ -44,6 +44,13 @@ angular.module("weasleyNG")
 	});
 
 	$rootScope.$on("CustomerListRequestEvent", function(evt) {
-		$rootScope.$broadcast("CustomerListResponseEvent", getWLSCustomers());
+		var customers = getWLSCustomers();
+		if (customers.length > 0) {
+			$rootScope.$broadcast("CustomerListResponseEvent", customers);
+		}
+	});
+
+	$rootScope.$on("CustomerListResponseEvent", function(evt, data) {
+		saveWLSCustomers(data);
 	});
 });

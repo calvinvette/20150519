@@ -24,7 +24,11 @@ angular.module('weasleyNG', [
 			});
 }) 
 //.run(function($timeout, $rootScope, $location){
-.run(function($rootScope, CustomerStorageService){
+//.run(function($rootScope, CustomerStorageService, CustomerRestStorageService){
+.run(function($rootScope 
+			,CustomerStorageService
+			,CustomerRestStorageService
+		){
   console.log('Your angular app is initialized.  Happy hacking!');
  $rootScope.$on("CustomerRegisteredEvent", function(evt, data) {
                         console.log("Customer Registered: " + data);
@@ -49,6 +53,19 @@ angular.module("weasleyNG")
                 };
         });
 
+angular.module('weasleyNG.foo', [
+
+])
+.config(function ($locationProvider, $httpProvider) {
+
+})
+
+.controller('WeasleyNGController', function($scope) {
+  $scope.foo;
+  $scope.fooBar = function(){
+    $scope.foo = 'bar';
+  }
+})  
 angular.module("weasleyNG")
  .controller("CustomerTableController", function($scope, $rootScope) {
                 $scope.customers = [ ]; 
@@ -99,19 +116,6 @@ angular.module("weasleyNG")
 		};
         });
 
-angular.module('weasleyNG.foo', [
-
-])
-.config(function ($locationProvider, $httpProvider) {
-
-})
-
-.controller('WeasleyNGController', function($scope) {
-  $scope.foo;
-  $scope.fooBar = function(){
-    $scope.foo = 'bar';
-  }
-})  
 var Customer = function(customerId, firstName, lastName, phoneNumber) {
 	this.customerId = customerId || -1;
 	this.firstName = firstName || "";
@@ -199,6 +203,49 @@ angular.module("weasleyNG")
 	});
 
 	$rootScope.$on("CustomerListRequestEvent", function(evt) {
-		$rootScope.$broadcast("CustomerListResponseEvent", getWLSCustomers());
+		var customers = getWLSCustomers();
+		if (customers.length > 0) {
+			$rootScope.$broadcast("CustomerListResponseEvent", customers);
+		}
+	});
+
+	$rootScope.$on("CustomerListResponseEvent", function(evt, data) {
+		saveWLSCustomers(data);
+	});
+});
+
+angular.module("weasleyNG")
+.service("CustomerRestStorageService", function($rootScope, $http) {
+	function getRESTCustomers() {
+		// HTTP GET request retrieves back data =~ SELECT from SQL
+		$http.get("http://www.nextgeneducation.com/weasley/customers.json")
+			.success(function(data) {
+				$rootScope.$broadcast("CustomerListResponseEvent", data);
+			})
+			.error(function(error, status, headers, config) {
+				console.log("Error retrieving customers from server!");
+				console.log(error);
+				console.log(status);
+			});
+	};
+
+	function saveRESTCustomers(customers) {
+		console.log("POSTED customers...");
+	};
+
+	$rootScope.$on("CustomerUpdatedEvent", function(evt, data) {
+		console.log("PUT customer: " + data);
+	});
+
+	$rootScope.$on("CustomerDeletedEvent", function(evt, data) {
+		console.log("DELETE customer: " + data);
+	});
+
+	$rootScope.$on("CustomerRegisteredEvent", function(evt, data) {
+		console.log("POST customer: " + data);
+	});
+
+	$rootScope.$on("CustomerListRequestEvent", function(evt) {
+			getRESTCustomers();
 	});
 });

@@ -1,19 +1,52 @@
 <form id="frmCustomerRegistration" name="frmCustomerRegistration" >
+        <div>
+        <span>
+        <h6 style="background-color: #0f0f0f">The Form is:</h6>
+                Valid: {{frmCustomerRegistration.$valid}} or Invalid: {{frmCustomerRegistration.$invalid}}<br/>
+                Pristine: {{frmCustomerRegistration.$pristine}} or Dirty: {{frmCustomerRegistration.$dirty}} <br/>
+                <ul>
+                        <li ng-repeat="field in frmCustomerRegistration">
+				{{field.$name}}: <span ng-show="field.$error">{{field.$error}}</span>
+			</li>
+                </ul>
+        </span>
+        </div>
+
+
 	<div class="formfield">
 		<label for="txtCustomerId">Customer ID:</label>
-		<input id="txtCustomerId" name="txtCustomerId" type="text" ng-model="customer.customerId"/>
+		<input id="txtCustomerId" name="txtCustomerId" type="number" min="1" ng-model="customer.customerId" required="true"/>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$pristine">Pristine</span>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$dirty">Dirty</span>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$valid">Valid</span>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$invalid">Invalid</span>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$touched">Touched</span>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$untouched">Untouched</span>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$touched && frmCustomerRegistration.txtCustomerId.$error.min" 
+			class="error">
+			You hoser - you need a customer Id &gt; 0!
+		</span>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$touched && frmCustomerRegistration.txtCustomerId.$error.number" 
+                        class="error">
+                        You hoser - Customer ID is a number!
+                </span>
+		<span ng-show="frmCustomerRegistration.txtCustomerId.$touched && frmCustomerRegistration.txtCustomerId.$error.required" 
+                        class="error">
+                        You hoser - Customer ID is required!
+                </span>
+
 	</div>
 	<div class="formfield">
 		<label for="txtFirstName">First Name</label>
-		<input id="txtFirstName" name="txtFirstName" type="text" ng-model="customer.firstName"/>
+		<input id="txtFirstName" name="txtFirstName" type="text" ng-model="customer.firstName" minlength="2" maxlength="15" required="required"/>
 	</div>
 	<div class="formfield">
 		<label for="txtLastName">Last Name:</label>
-		<input id="txtLastName" name="txtLastName" type="text" ng-model="customer.lastName"/>
+		<input id="txtLastName" name="txtLastName" type="text" ng-model="customer.lastName" minlength="2" maxlength="15" required="true"/>
 	</div>
 	<div class="formfield">
 		<label for="txtPhoneNumber">Phone Number:</label>
-		<input id="txtPhoneNumber" name="txtPhoneNumber" type="text" ng-model="customer.phoneNumber"/>
+		<input id="txtPhoneNumber" name="txtPhoneNumber" type="text" ng-model="customer.phoneNumber" pattern="\d{3}-\d{3}-\d{4}"/>
 	</div>
 	<button id="btnRegister" ng-click="register()">Register New Customer</button>
 </form>
